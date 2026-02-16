@@ -8,73 +8,51 @@
     <meta name="author" content="Symum Ahmed">
     <title>Symum Ahmed - Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f9fafb; /* Lighter gray background */
-            color: #1f2937; /* Darker charcoal text for contrast */
+            background-color: #f9fafb;
+            color: #1f2937;
         }
         .hero-bg {
-            background-color: #111827; /* A very dark gray, almost black */
+            background-color: #111827;
+            position: relative;
+            overflow: hidden; /* Ensures particles don't spill out */
         }
-        .section-title {
-            color: #111827;
+        /* Style for the particle background container */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0; /* Sits behind content */
         }
+        /* Ensures hero content sits on top of particles */
+        .hero-content-wrapper {
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-title { color: #111827; }
+
+        /* --- Card Styles --- */
         .card {
             background-color: #ffffff;
             border: 1px solid #e5e7eb;
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            position: relative; /* Needed for absolute positioning of the indicator */
+            position: relative;
         }
         .card:hover {
             transform: translateY(-8px);
-            border-color: #14b8a6; /* Teal accent */
+            border-color: #14b8a6;
             box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
-        .profile-img-container {
-            perspective: 1000px;
-        }
-        .profile-img {
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            transform: rotateY(-10deg) rotateX(4deg);
-            box-shadow: -8px 8px 25px rgba(0,0,0,0.2), -2px 2px 5px rgba(0,0,0,0.1);
-        }
-        .profile-img:hover {
-            transform: rotateY(0) rotateX(0) scale(1.05);
-            box-shadow: 0px 20px 40px rgba(0,0,0,0.2), 0px 5px 10px rgba(0,0,0,0.1);
-        }
-        .skill-badge {
-            background-color: #ccfbf1; /* Light teal */
-            color: #0f766e; /* Dark teal */
-            padding: 0.5rem 1.25rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            transition: all 0.2s ease;
-	    transform: translateY(0);
-        }
-        .skill-badge:hover {
-            background-color: #14b8a6;
-            color: #ffffff;
-            transform: translateY(-3px);
-        }
-        .highlight {
-            background-color: #d1faea; /* Lighter version of the light teal */
-            padding: 0.1rem 0.4rem;
-            border-radius: 4px;
-            font-weight: 600;
-            color: #0f766e; /* Dark teal for text */
-        }
-        .timeline-item {
-            transition: background-color 0.3s ease;
-        }
-        .timeline-item:hover {
-             background-color: #f3f4f6;
-        }
-
         .card-details {
             max-height: 0;
             opacity: 0;
@@ -82,60 +60,83 @@
             transition: max-height 0.4s ease-out, opacity 0.3s ease-out 0.1s;
         }
         .card:hover .card-details {
-            max-height: 500px; /* generous height */
+            max-height: 500px;
             opacity: 1;
         }
-
         .hover-indicator {
             position: absolute;
             bottom: 1rem;
             right: 1.5rem;
-            font-size: 0.75rem; /* text-xs */
-            color: #9ca3af; /* gray-400 */
+            font-size: 0.75rem;
+            color: #9ca3af;
             transition: opacity 0.3s ease;
-            pointer-events: none; /* Make sure it doesn't interfere with hover */
+            pointer-events: none;
+        }
+        .card:hover .hover-indicator { opacity: 0; }
+
+        /* --- Profile Image Styles --- */
+        .profile-img-container {
+            perspective: 1000px;
+        }
+        /* New Glowing Ring Container for Image */
+        .ai-profile-ring {
+             /* Creates the gradient border effect */
+            background: linear-gradient(45deg, #14b8a6, #3b82f6, #14b8a6);
+            padding: 6px; /* Thickness of the glowing ring */
+            border-radius: 9999px;
+            /* Adds a glowing shadow */
+            box-shadow: 0 0 30px -5px rgba(20, 184, 166, 0.5);
+            display: inline-block;
+            transition: all 0.4s ease;
+        }
+        /* Slight hover boost for the glow */
+        .ai-profile-ring:hover {
+             box-shadow: 0 0 50px -5px rgba(20, 184, 166, 0.8);
+             transform: scale(1.02);
         }
 
-        .card:hover .hover-indicator {
-            opacity: 0;
+        .profile-img {
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            /* Removed the old border-8 border-gray-800 here */
+            display: block;
+            border-radius: 9999px; /* Ensure image itself is round */
         }
 
+        /* --- Skills & Highlights --- */
+        .skill-badge {
+            background-color: #ccfbf1;
+            color: #0f766e;
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            transform: translateY(0);
+        }
+        .skill-badge:hover {
+            background-color: #14b8a6;
+            color: #ffffff;
+            transform: translateY(-3px);
+        }
+        .highlight {
+            background-color: #d1faea;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #0f766e;
+        }
 
-	.fade-text {
-  	opacity: 0;
-  	transform: translateY(10px);
-  	transition: opacity 0.4s ease, transform 0.4s ease;
-	}
+        /* --- Timeline --- */
+        .timeline-item { transition: background-color 0.3s ease; }
+        .timeline-item:hover { background-color: #f3f4f6; }
 
-	.fade-text.show {
-  	opacity: 1;
-  	transform: translateY(0);
-	}
+        /* --- Animations --- */
+        @keyframes blink {
+          0%, 50%, 100% { border-color: transparent; }
+          25%, 75% { border-color: #14b8a6; }
+        }
+        #typing-text { animation: blink 1s infinite; }
 
-	.text-animate {
-  	opacity: 0;
-  	transform: translateY(12px);
-  	filter: blur(4px);
-  	transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease;
-	}
-
-	.text-animate.show {
-  	opacity: 1;
-  	transform: translateY(0);
-  	filter: blur(0);
-	}
-
-@keyframes blink {
-  0%, 50%, 100% { border-color: transparent; }
-  25%, 75% { border-color: #14b8a6; }
-}
-
-#typing-text {
-  animation: blink 1s infinite;
-}
-
-
-        /* Scroll Animation */
         .fade-in-up {
             opacity: 0;
             transform: translateY(30px);
@@ -151,7 +152,6 @@
 <div id="progress-bar" class="fixed top-0 left-0 h-1 bg-teal-500 z-50"></div>
 
 
-    <!-- Header & Navigation -->
     <header class="bg-white/70 backdrop-blur-lg sticky top-0 z-50 border-b border-gray-200">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-2xl font-bold text-gray-900 tracking-tight">Symum Ahmed</a>
@@ -165,7 +165,6 @@
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </nav>
-        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
             <a href="#about" class="block py-2 text-gray-600 hover:text-teal-600">About</a>
             <a href="#work-experience" class="block py-2 text-gray-600 hover:text-teal-600">Work</a>
@@ -177,38 +176,41 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
         <section class="hero-bg text-white">
-            <div class="container mx-auto px-6 py-24 md:py-40 flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0">
-                    <span class="text-teal-400 font-semibold tracking-wider">SYMUM AHMED</span>
-                    <h1 class="text-4xl md:text-6xl font-extrabold mt-2 mb-4 leading-tight">
-  <span id="typing-text" class="text-teal-400 border-r-4 border-teal-400 pr-2"></span>
-</h1>
+            <div id="particles-js"></div>
 
-                    <p class="text-base md:text-lg text-gray-300 max-w-xl">
-                        Passionate about building <span class="highlight text-teal-900 bg-teal-200">data-driven solutions</span> to solve real-world problems.
+            <div class="container mx-auto px-6 py-24 md:py-40 flex flex-col md:flex-row items-center hero-content-wrapper">
+                <div class="md:w-1/2 text-center md:text-left mb-12 md:mb-0 z-10">
+                    <span class="text-teal-400 font-semibold tracking-wider uppercase">Symum Ahmed</span>
+                    <h1 class="text-4xl md:text-6xl font-extrabold mt-2 mb-4 leading-tight min-h-[80px] md:min-h-[120px]">
+                         <span id="typing-text" class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500 border-r-4 border-teal-400 pr-2"></span>
+                    </h1>
+
+                    <p class="text-base md:text-lg text-gray-300 max-w-xl mx-auto md:mx-0">
+                        Passionate about building <span class="text-teal-300 font-semibold">data-driven solutions</span> and exploring the frontiers of Artificial Intelligence.
                     </p>
                     <div class="mt-8 flex flex-wrap justify-center md:justify-start gap-4">
-                         <a href="#work-experience" class="bg-teal-500 text-white font-semibold py-3 px-8 rounded-lg hover:bg-teal-600 transition duration-300">View My Work</a>
-                         <a href="#contact" class="bg-gray-700 text-white font-semibold py-3 px-8 rounded-lg hover:bg-gray-600 transition duration-300">Get in Touch</a>
-			<a href="resume.pdf" download
-   			class="bg-white text-gray-900 font-semibold py-3 px-8 rounded-lg hover:bg-gray-200 transition">
-   			Download CV
-			</a>
+                         <a href="#work-experience" class="bg-teal-500 text-white font-semibold py-3 px-8 rounded-lg hover:bg-teal-600 transition duration-300 shadow-lg shadow-teal-500/20">View My Work</a>
+                         <a href="#contact" class="bg-gray-800/80 backdrop-blur text-white font-semibold py-3 px-8 rounded-lg hover:bg-gray-700 transition duration-300 border border-gray-700">Get in Touch</a>
+                        <a href="resume.pdf" download class="bg-white text-gray-900 font-semibold py-3 px-8 rounded-lg hover:bg-gray-200 transition flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                        Download CV
+                        </a>
                     </div>
                 </div>
-                <div class="md:w-1/2 flex justify-center md:justify-end profile-img-container">
-                    <img src="images/profile.jpg" alt="Symum Ahmed profile photo"
-     class="profile-img w-48 h-48 md:w-72 md:h-72 rounded-full border-8 border-gray-800">
+                <div class="md:w-1/2 flex justify-center md:justify-end profile-img-container z-10">
+                    <div class="ai-profile-ring">
+                         <img src="images/profile.jpg" alt="Symum Ahmed profile photo"
+                         class="profile-img w-48 h-48 md:w-72 md:h-72">
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- All sections below will have the animation class -->
         <div class="space-y-24 md:space-y-32 my-24 md:my-32">
 
-            <!-- About Me Section -->
             <section id="about" class="container mx-auto px-6 fade-in-up">
                 <div class="max-w-4xl mx-auto text-center">
                     <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">About Me 👨‍💻</h2>
@@ -218,7 +220,6 @@
                 </div>
             </section>
 
-            <!-- Work Experience Section -->
             <section id="work-experience" class="container mx-auto px-6 fade-in-up">
                 <h2 class="section-title text-3xl md:text-4xl font-bold text-center mb-16">Work Experience 💼</h2>
                 <div class="max-w-2xl mx-auto">
@@ -235,7 +236,6 @@
                 </div>
             </section>
 
-            <!-- Research Experience Section -->
             <section id="research-experience" class="container mx-auto px-6 fade-in-up">
                 <h2 class="section-title text-3xl md:text-4xl font-bold text-center mb-16">Research Experience 🧑🏻‍💻</h2>
                 <div class="max-w-2xl mx-auto">
@@ -257,20 +257,19 @@
   <h2 class="section-title text-3xl md:text-4xl font-bold text-center mb-16">Projects 🚀</h2>
 
   <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-    
+
     <div class="card p-6 rounded-xl">
       <h3 class="text-xl font-bold mb-2">Medical Image Classifier</h3>
       <p class="text-gray-600 text-sm">
         Deep learning model achieving 94% accuracy in organ disease detection.
       </p>
-      <a href="#" class="text-teal-600 font-semibold mt-3 inline-block">View Project →</a>
+      <a href="#" class="text-teal-600 font-semibold mt-3 inline-block hover:underline">View Project →</a>
     </div>
 
   </div>
 </section>
 
-            
-            <!-- Skills Section -->
+
             <section id="skills" class="container mx-auto px-6 fade-in-up">
                 <div class="text-center">
                     <h2 class="section-title text-3xl md:text-4xl font-bold mb-12">Technical Skills 🛠️</h2>
@@ -279,22 +278,21 @@
                         <span class="skill-badge">Data Cleaning & Preprocessing</span>
                         <span class="skill-badge">Data Visualization</span>
                         <span class="skill-badge">Machine Learning Algorithms</span>
+                        <span class="skill-badge">Deep Learning (CNNs)</span>
+                        <span class="skill-badge">TensorFlow / Keras</span>
                         <span class="skill-badge">Statistical Analysis</span>
-                        <span class="skill-badge">TensorFlow</span>
-                        <span class="skill-badge">Git</span>
+                        <span class="skill-badge">Git & Version Control</span>
                     </div>
                 </div>
             </section>
 
-            <!-- Education Section -->
             <section id="education" class="container mx-auto px-6 fade-in-up">
                 <div class="text-center mb-16">
                     <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">Education 🎓</h2>
                 </div>
                 <div class="max-w-2xl mx-auto border-l-2 border-teal-200 pl-8">
-                    <!-- Ongoing Study -->
                     <div class="relative mb-10 p-4 rounded-lg timeline-item">
-                         <div class="absolute w-5 h-5 bg-yellow-500 rounded-full -left-[44px] top-6 transform -translate-y-1/2 border-4 border-white"></div>
+                         <div class="absolute w-5 h-5 bg-yellow-500 rounded-full -left-[44px] top-6 transform -translate-y-1/2 border-4 border-white shadow-sm"></div>
                          <div class="flex items-center justify-between mb-1">
                             <p class="text-sm font-semibold text-yellow-600">May 2025 - Present</p>
                             <span class="text-xs font-semibold text-yellow-800 bg-yellow-200 px-2 py-1 rounded-full">Ongoing</span>
@@ -302,23 +300,20 @@
                         <h3 class="text-xl font-bold text-gray-900">Master of Science in Applied Statistics and Data Science</h3>
                         <p class="text-base text-gray-600 mt-1">Jahangirnagar University</p>
                     </div>
-                    <!-- Completed Study -->
                     <div class="relative mb-10 p-4 rounded-lg timeline-item">
-                        <div class="absolute w-5 h-5 bg-teal-500 rounded-full -left-[44px] top-6 transform -translate-y-1/2 border-4 border-white"></div>
+                        <div class="absolute w-5 h-5 bg-teal-500 rounded-full -left-[44px] top-6 transform -translate-y-1/2 border-4 border-white shadow-sm"></div>
                         <p class="text-sm font-semibold text-gray-500 mb-1">Jan 2019 - Oct 2023</p>
                         <h3 class="text-xl font-bold text-gray-900">Bachelor of Science in Computer Science and Engineering</h3>
                         <p class="text-base text-gray-600 mt-1">BRAC University</p>
                     </div>
-                    <!-- Completed Study -->
-                     <div class="relative mb-10 p-4 rounded-lg timeline-item">
-                        <div class="absolute w-5 h-5 bg-teal-500 rounded-full -left-[44px] top-6 transform -translate-y-1/2 border-4 border-white"></div>
+                    <div class="relative mb-10 p-4 rounded-lg timeline-item">
+                        <div class="absolute w-5 h-5 bg-teal-500 rounded-full -left-[44px] top-6 transform -translate-y-1/2 border-4 border-white shadow-sm"></div>
                         <p class="text-sm font-semibold text-gray-500 mb-1">Jul 2016 - Jul 2018</p>
                         <h3 class="text-xl font-bold text-gray-900">Higher Secondary Certificate (HSC)</h3>
                         <p class="text-base text-gray-600 mt-1">Notredame College, Dhaka</p>
                     </div>
-                    <!-- Completed Study -->
                     <div class="relative p-4 rounded-lg timeline-item">
-                        <div class="absolute w-5 h-5 bg-teal-500 rounded-full -left-[44px] top-6 transform -translate-y-1/2 border-4 border-white"></div>
+                        <div class="absolute w-5 h-5 bg-teal-500 rounded-full -left-[44px] top-6 transform -translate-y-1/2 border-4 border-white shadow-sm"></div>
                         <p class="text-sm font-semibold text-gray-500 mb-1">Jan 2015 - Apr 2016</p>
                         <h3 class="text-xl font-bold text-gray-900">Secondary School Certificate (SSC)</h3>
                         <p class="text-base text-gray-600 mt-1">Khulna Zilla School, Khulna</p>
@@ -327,48 +322,46 @@
             </section>
 
         </div>
-        
-        <!-- Contact Section -->
-        <section id="contact" class="bg-white">
-  <div class="container mx-auto px-6 py-20 md:py-24 text-center">
 
-    <h2 class="section-title text-3xl md:text-4xl font-bold mb-6">
-      Let's Connect 👋
-    </h2>
+        <section id="contact" class="bg-white relative overflow-hidden">
+            <div class="absolute inset-0 opacity-5 bg-[radial-gradient(#14b8a6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+          <div class="container mx-auto px-6 py-20 md:py-24 text-center relative z-10">
 
-    <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed text-center">
-      I'm actively seeking new opportunities and would love to discuss research,
-      collaborations, or graduate assistantships. Feel free to reach out!
-    </p>
+            <h2 class="section-title text-3xl md:text-4xl font-bold mb-6">
+              Let's Connect 👋
+            </h2>
 
-    <!-- Button wrapper -->
-    <div class="mt-10 flex justify-center">
-      <a href="mailto:symumahmed21@gmail.com"
-         class="inline-flex items-center justify-center bg-teal-500 text-white font-bold py-4 px-10 rounded-xl
-                hover:bg-teal-600 transition duration-300 text-lg shadow-lg hover:shadow-xl
-                transform hover:-translate-y-1">
-        Email Me
-      </a>
-    </div>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed text-center">
+              I'm actively seeking new opportunities and would love to discuss research,
+              collaborations, or graduate assistantships. Feel free to reach out!
+            </p>
 
-  </div>
-</section>
+            <div class="mt-10 flex justify-center">
+              <a href="mailto:symumahmed21@gmail.com"
+                 class="inline-flex items-center justify-center bg-teal-500 text-white font-bold py-4 px-10 rounded-xl
+                        hover:bg-teal-600 transition duration-300 text-lg shadow-lg hover:shadow-teal-500/30
+                        transform hover:-translate-y-1 ls-wider">
+                Email Me
+              </a>
+            </div>
+
+          </div>
+        </section>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-gray-900 text-white py-8">
         <div class="container mx-auto px-6 text-center text-gray-400">
             <div class="flex justify-center space-x-6 mb-6">
-                <a href="https://www.linkedin.com/in/symumahmed/" aria-label="LinkedIn profile" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition duration-300">
+                <a href="https://www.linkedin.com/in/symumahmed/" aria-label="LinkedIn profile" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-teal-400 transition duration-300">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"/></svg>
                 </a>
-                <a href="https://github.com/symumAhmed" aria-label="Github profile" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition duration-300">
+                <a href="https://github.com/symumAhmed" aria-label="Github profile" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-teal-400 transition duration-300">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.378.203 2.398.1 2.65.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd"/></svg>
                 </a>
-                <a href="https://www.facebook.com/symumturjo21" aria-label="Facebook profile" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition duration-300">
+                <a href="https://www.facebook.com/symumturjo21" aria-label="Facebook profile" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-teal-400 transition duration-300">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"/></svg>
                 </a>
-                <a href="https://www.instagram.com/symumturjo/" aria-label="Instagram profile" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition duration-300">
+                <a href="https://www.instagram.com/symumturjo/" aria-label="Instagram profile" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-teal-400 transition duration-300">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.024.06 1.378.06 3.808s-.012 2.784-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.024.048-1.378.06-3.808.06s-2.784-.012-3.808-.06c-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.048-1.024-.06-1.378-.06-3.808s.012-2.784.06-3.808c.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 016.08 2.525c.636-.247 1.363-.416 2.427-.465C9.53 2.013 9.884 2 12.315 2zM12 7a5 5 0 100 10 5 5 0 000-10zm0 8a3 3 0 110-6 3 3 0 010 6zm6.406-11.845a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5z" clip-rule="evenodd"/></svg>
                 </a>
             </div>
@@ -377,14 +370,106 @@
     </footer>
 
     <script>
-        // Mobile menu toggle
+        // --- Particles.js Configuration ---
+        particlesJS("particles-js", {
+          "particles": {
+            "number": {
+              "value": 80,
+              "density": {
+                "enable": true,
+                "value_area": 800
+              }
+            },
+            "color": {
+              "value": ["#14b8a6", "#3b82f6"] // Teal and Blue particles
+            },
+            "shape": {
+              "type": "circle",
+              "stroke": {
+                "width": 0,
+                "color": "#000000"
+              },
+            },
+            "opacity": {
+              "value": 0.5,
+              "random": false,
+              "anim": {
+                "enable": false,
+                "speed": 1,
+                "opacity_min": 0.1,
+                "sync": false
+              }
+            },
+            "size": {
+              "value": 3,
+              "random": true,
+              "anim": {
+                "enable": false,
+                "speed": 40,
+                "size_min": 0.1,
+                "sync": false
+              }
+            },
+            "line_linked": {
+              "enable": true,
+              "distance": 150,
+              "color": "#14b8a6", // Teal connecting lines
+              "opacity": 0.3,
+              "width": 1
+            },
+            "move": {
+              "enable": true,
+              "speed": 2,
+              "direction": "none",
+              "random": false,
+              "straight": false,
+              "out_mode": "out",
+              "bounce": false,
+              "attract": {
+                "enable": false,
+                "rotateX": 600,
+                "rotateY": 1200
+              }
+            }
+          },
+          "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+              "onhover": {
+                "enable": true,
+                "mode": "grab"
+              },
+              "onclick": {
+                "enable": true,
+                "mode": "push"
+              },
+              "resize": true
+            },
+            "modes": {
+              "grab": {
+                "distance": 140,
+                "line_linked": {
+                  "opacity": 1
+                }
+              },
+              "push": {
+                "particles_nb": 4
+              }
+            }
+          },
+          "retina_detect": true
+        });
 
+
+        // --- Existing JS below ---
+
+        // Mobile menu toggle
         window.addEventListener("scroll", () => {
-  	const scrolled = window.scrollY;
-  	const height = document.body.scrollHeight - window.innerHeight;
-  	const width = (scrolled / height) * 100;
-  	document.getElementById("progress-bar").style.width = width + "%";
-	});
+            const scrolled = window.scrollY;
+            const height = document.body.scrollHeight - window.innerHeight;
+            const width = (scrolled / height) * 100;
+            document.getElementById("progress-bar").style.width = width + "%";
+        });
 
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -398,48 +483,45 @@
             link.addEventListener('click', () => {
                 setTimeout(() => {
                     if (!mobileMenu.classList.contains('hidden')) {
-                         mobileMenu.classList.add('hidden');
+                        mobileMenu.classList.add('hidden');
                     }
                 }, 100);
             });
         });
 
-const roles = ["Data Scientist", "AI Enthusiast"];
-const typingElement = document.getElementById("typing-text");
+        const roles = ["Data Scientist", "AI Enthusiast", "Machine Learning Engineer"];
+        const typingElement = document.getElementById("typing-text");
 
-let roleIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
 
-function typeEffect() {
-  const currentRole = roles[roleIndex];
+        function typeEffect() {
+            const currentRole = roles[roleIndex];
 
-  if (isDeleting) {
-    typingElement.textContent = currentRole.substring(0, charIndex--);
-  } else {
-    typingElement.textContent = currentRole.substring(0, charIndex++);
-  }
+            if (isDeleting) {
+                typingElement.textContent = currentRole.substring(0, charIndex--);
+            } else {
+                typingElement.textContent = currentRole.substring(0, charIndex++);
+            }
 
-  let speed = isDeleting ? 50 : 100;
+            let speed = isDeleting ? 50 : 100;
 
-  if (!isDeleting && charIndex === currentRole.length + 1) {
-    speed = 1500;      // pause before deleting
-    isDeleting = true;
-  } 
-  else if (isDeleting && charIndex === 0) {
-    isDeleting = false;
-    roleIndex = (roleIndex + 1) % roles.length;
-    speed = 400;       // pause before typing next
-  }
+            if (!isDeleting && charIndex === currentRole.length + 1) {
+                speed = 1500;      // pause before deleting
+                isDeleting = true;
+            }
+            else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                speed = 400;       // pause before typing next
+            }
 
-  setTimeout(typeEffect, speed);
-}
+            setTimeout(typeEffect, speed);
+        }
 
-// start typing
-typeEffect();
-
-
-
+        // start typing
+        typeEffect();
 
         // Scroll Animation Logic
         const animatedElements = document.querySelectorAll('.fade-in-up');
@@ -450,7 +532,7 @@ typeEffect();
                 }
             });
         }, {
-            threshold: 0.1 
+            threshold: 0.1
         });
 
         animatedElements.forEach(element => {
@@ -460,13 +542,3 @@ typeEffect();
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
