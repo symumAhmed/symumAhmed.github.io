@@ -296,3 +296,27 @@ button { font: inherit; }
 
 
 /* 2026 portfolio polish: visible publication selector, dual skill marquees, curiosity signal */
+
+/* Chronological bookshelf: front-facing, fully visible publication covers */
+.archive-stack-visual{padding:26px 18px 24px;min-height:410px}
+.book-stack{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:end;gap:10px;width:100%;height:auto;padding:28px 14px 30px;isolation:isolate}
+.book-stack::before{content:"";position:absolute;left:4px;right:4px;bottom:17px;height:18px;border:1px solid rgba(183,151,105,.55);border-radius:3px;background:linear-gradient(180deg,#70563b,#3a2b20 45%,#211a15);box-shadow:0 9px 15px rgba(0,0,0,.45),inset 0 2px 2px rgba(255,224,177,.2);z-index:0}
+.book-stack::after{content:"";position:absolute;left:12px;right:12px;bottom:5px;height:10px;border-radius:2px;background:linear-gradient(180deg,#3d3025,#1d1712);box-shadow:0 5px 8px rgba(0,0,0,.35);z-index:0}
+.stack-book{position:relative;left:auto;top:auto;width:100%;min-width:0;height:265px;min-height:0;padding:15px 10px 16px 14px;border-radius:3px 7px 7px 3px;display:flex;flex-direction:column;justify-content:space-between;gap:9px;overflow:hidden;z-index:1;box-shadow:5px 7px 12px rgba(0,0,0,.38),inset 5px 0 8px rgba(0,0,0,.22),inset -1px 0 rgba(255,255,255,.12);transform:translateY(0);transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.stack-book::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:rgba(224,244,236,.14);box-shadow:2px 0 rgba(0,0,0,.12);pointer-events:none}
+.stack-book::after{content:"";position:absolute;right:7px;top:10px;bottom:10px;width:3px;border-right:1px dotted rgba(220,241,232,.25);pointer-events:none}
+.stack-book .book-year{position:relative;z-index:1;display:inline-flex;align-self:flex-start;padding:4px 6px;border:1px solid rgba(220,245,236,.24);border-radius:4px;background:rgba(4,14,16,.25);font-size:.62rem;font-weight:800;letter-spacing:.12em;color:#d7f8ef}
+.stack-book .stack-spine{font-size:.46rem;letter-spacing:.1em;line-height:1.2;color:rgba(220,245,236,.68);white-space:normal}
+.stack-book b{font-size:clamp(.68rem,.95vw,.9rem);line-height:1.18;letter-spacing:-.035em;overflow-wrap:anywhere}
+.stack-book small{font-size:.43rem;line-height:1.3;letter-spacing:.08em;color:rgba(220,245,236,.68)}
+.stack-book-one{background:linear-gradient(155deg,#20534b,#102b2a 72%,#0a1b1c)}
+.stack-book-two{background:linear-gradient(155deg,#344d61,#192a3b 72%,#101c2a)}
+.stack-book-three{background:linear-gradient(155deg,#51462f,#29271d 72%,#17160f)}
+.stack-book-four{background:linear-gradient(155deg,#4b354b,#2b1d32 72%,#19121e)}
+.stack-book.is-selected{transform:translateY(-10px);border-color:var(--accent);box-shadow:0 15px 24px rgba(0,0,0,.42),0 0 0 1px rgba(84,226,203,.65),0 0 22px rgba(84,226,203,.2);z-index:3}
+.stack-book:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.archive-stack-visual .archive-label{position:static;justify-content:center;margin-top:12px}
+@media(max-width:900px){.archive-stack-visual{padding:20px 12px}.book-stack{gap:8px;padding-inline:7px}.stack-book{height:245px;padding:13px 8px 14px 11px}.stack-book b{font-size:.72rem}}
+@media(max-width:680px){.book-stack{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 14px;padding:20px 12px 30px}.stack-book{height:220px;padding:14px 12px 15px 16px}.stack-book b{font-size:.9rem}.stack-book small{font-size:.48rem}.archive-stack-visual{padding:14px 8px 18px}}
+@media(max-width:430px){.book-stack{gap:20px 10px;padding-inline:5px}.stack-book{height:195px;padding:12px 8px 13px 12px}.stack-book b{font-size:.78rem}.stack-book .stack-spine{font-size:.4rem}}
+@media(prefers-reduced-motion:reduce){.stack-book{transition:none!important}}
