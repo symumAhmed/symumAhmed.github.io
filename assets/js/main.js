@@ -50,30 +50,6 @@
 })();
 
 
-  // Interactive knowledge constellation: lightweight CSS 3D, no external library.
-  const scene = document.querySelector(".knowledge-scene");
-  if (scene) {
-    const detailTitle = scene.querySelector(".scene-detail strong");
-    const detailText = scene.querySelector(".scene-detail span");
-    const nodes = [...scene.querySelectorAll(".knowledge-node")];
-    nodes.forEach((node) => node.addEventListener("click", () => {
-      nodes.forEach((item) => item.classList.remove("active"));
-      node.classList.add("active");
-      if (detailTitle) detailTitle.textContent = node.dataset.topic || "Research focus";
-      if (detailText) detailText.textContent = node.dataset.detail || "";
-    }));
-    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
-        !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      scene.addEventListener("pointermove", (event) => {
-        const rect = scene.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / rect.width - .5;
-        const y = (event.clientY - rect.top) / rect.height - .5;
-        scene.style.transform = `rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
-      });
-      scene.addEventListener("pointerleave", () => { scene.style.transform = ""; });
-    }
-  }
-
   // Selectable thesis/publication stack.
   const archiveStack = document.querySelector(".book-stack");
   if (archiveStack) {
