@@ -601,3 +601,114 @@ html[data-theme="light"] .workspace-caption{color:#285d4f}
 html[data-theme="light"] .workspace-index{color:#477969}
 @media(max-width:700px){.workspace-scene{height:420px;max-width:100%;border-radius:24px;margin-top:12px}.workspace-caption{bottom:19px;font-size:.53rem}.workspace-index{top:16px;right:16px;font-size:.48rem}}
 @media(prefers-reduced-motion:reduce){.workspace-backlight,.workspace-plant,.workspace-dust{animation:none!important}}
+
+/* About section: text left, information cards right */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.85fr);
+  gap: clamp(40px, 7vw, 100px);
+  align-items: start;
+}
+
+.about-left {
+  min-width: 0;
+}
+
+.about-left .section-heading {
+  margin-bottom: 28px;
+}
+
+.about-left .section-lead {
+  max-width: 620px;
+}
+
+.about-copy {
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.85;
+}
+
+.about-copy p {
+  margin: 0 0 20px;
+}
+
+.about-copy strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.about-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.about-right .fact-panel {
+  width: 100%;
+}
+
+.about-right .credentials {
+  width: 100%;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 0;
+}
+
+.about-right .credentials > div {
+  padding: 19px;
+}
+
+/* Responsive layout */
+@media (max-width: 800px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .about-right {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 680px) {
+  .about-left .section-heading {
+    margin-bottom: 22px;
+  }
+
+  .about-copy {
+    font-size: 0.96rem;
+  }
+}
+
+/* Projects & experiments — light theme */
+html[data-theme="light"] #projects .project-lab {
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #cbdcd5 !important;
+  box-shadow: 0 12px 32px rgba(30, 65, 52, 0.07);
+}
+
+html[data-theme="light"] #projects .lab-copy {
+  background: #ffffff !important;
+  background-image: none !important;
+  color: #20352d !important;
+}
+
+html[data-theme="light"] #projects .lab-copy h3 {
+  color: #172722 !important;
+}
+
+html[data-theme="light"] #projects .lab-copy p {
+  color: #52675f !important;
+}
+
+html[data-theme="light"] #projects .lab-stages,
+html[data-theme="light"] #projects .lab-stages span {
+  color: #29483e !important;
+}
+
+html[data-theme="light"] #projects .lab-note {
+  color: #087f70 !important;
+}
