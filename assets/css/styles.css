@@ -576,3 +576,28 @@ html[data-theme="light"] .observatory-caption,html[data-theme="light"] .observat
 html[data-theme="light"] .observatory-art .constellation-dots{fill:#087f70}
 @media(max-width:700px){.observatory-scene{height:420px;max-width:100%;border-radius:24px;margin-top:12px}.observatory-art{inset:2%;width:96%;height:90%}.observatory-caption{bottom:21px;font-size:.52rem}.observatory-index{right:17px;top:16px}}
 @media(prefers-reduced-motion:reduce){.observatory-aura,.observatory-art .orbit-back,.observatory-art .orbit-front,.observatory-art .data-streams,.observatory-art .prism-core,.observatory-art .satellites,.observatory-art .constellation-dots{animation:none!important}}
+
+/* Minimal 3D-inspired research workspace hero — no character or topic bubbles */
+.workspace-scene{position:relative;width:100%;max-width:590px;height:540px;justify-self:end;overflow:hidden;isolation:isolate;border-radius:32px;background:radial-gradient(ellipse at 72% 36%,rgba(232,194,130,.16),transparent 32%),radial-gradient(ellipse at 45% 52%,rgba(52,154,134,.2),transparent 57%),linear-gradient(145deg,#15272b,#0b171d 65%,#101f22);border:1px solid rgba(129,190,171,.2);box-shadow:0 28px 80px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.08)}
+.workspace-backlight{position:absolute;inset:4% 8% 18%;border-radius:50%;background:radial-gradient(ellipse,rgba(78,186,155,.19),rgba(226,180,116,.08) 48%,transparent 72%);filter:blur(28px);animation:workspaceGlow 9s ease-in-out infinite}
+.workspace-window{position:absolute;left:8%;top:9%;width:84%;height:40%;border:1px solid rgba(164,213,192,.15);border-radius:20px;background:linear-gradient(135deg,rgba(115,172,157,.06),rgba(12,26,30,.08));box-shadow:inset 0 1px rgba(255,255,255,.04)}
+.workspace-window span{position:relative;display:inline-block;width:5px;height:5px;margin:13px 0 0 12px;border-radius:50%;background:#79c7a9;opacity:.65}
+.workspace-window i{position:absolute;left:20%;right:20%;top:38%;height:1px;background:linear-gradient(90deg,transparent,rgba(135,208,185,.22),transparent)}
+.workspace-window b{position:absolute;left:32%;right:32%;top:57%;height:1px;background:linear-gradient(90deg,transparent,rgba(135,208,185,.16),transparent)}
+.workspace-art{position:absolute;inset:0;width:100%;height:100%}
+.workspace-laptop{filter:drop-shadow(0 14px 15px rgba(0,0,0,.22))}
+.workspace-plant{transform-origin:115px 380px;animation:plantSway 8s ease-in-out infinite}
+.workspace-lamp{transform-origin:505px 380px}
+.workspace-coffee path:nth-of-type(3){filter:drop-shadow(0 0 7px rgba(238,222,190,.25))}
+.workspace-dust{animation:dustDrift 12s ease-in-out infinite alternate;opacity:.62}
+.workspace-caption{position:absolute;left:0;right:0;bottom:26px;text-align:center;color:#c4e5d7;font-size:.62rem;letter-spacing:.24em;font-weight:700}
+.workspace-index{position:absolute;top:22px;right:23px;color:#a6cabc;font-size:.55rem;letter-spacing:.18em}
+@keyframes workspaceGlow{0%,100%{opacity:.65;transform:scale(.97)}50%{opacity:1;transform:scale(1.04)}}
+@keyframes plantSway{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1.2deg)}}
+@keyframes dustDrift{from{transform:translateY(7px);opacity:.35}to{transform:translateY(-9px);opacity:.8}}
+html[data-theme="light"] .workspace-scene{background:radial-gradient(ellipse at 72% 36%,rgba(224,176,106,.24),transparent 32%),radial-gradient(ellipse at 45% 52%,rgba(73,169,144,.2),transparent 57%),linear-gradient(145deg,#e9f3ed,#d9e9e2 65%,#eaf1e9);border-color:rgba(8,127,112,.2);box-shadow:0 26px 65px rgba(35,85,67,.12),inset 0 1px rgba(255,255,255,.9)}
+html[data-theme="light"] .workspace-window{background:linear-gradient(135deg,rgba(255,255,255,.28),rgba(111,158,140,.08));border-color:rgba(30,103,81,.18)}
+html[data-theme="light"] .workspace-caption{color:#285d4f}
+html[data-theme="light"] .workspace-index{color:#477969}
+@media(max-width:700px){.workspace-scene{height:420px;max-width:100%;border-radius:24px;margin-top:12px}.workspace-caption{bottom:19px;font-size:.53rem}.workspace-index{top:16px;right:16px;font-size:.48rem}}
+@media(prefers-reduced-motion:reduce){.workspace-backlight,.workspace-plant,.workspace-dust{animation:none!important}}
