@@ -48,3 +48,59 @@
   const year = document.querySelector("[data-current-year]");
   if (year) year.textContent = new Date().getFullYear();
 })();
+
+
+  // Selectable thesis/publication stack.
+  const archiveStack = document.querySelector(".book-stack");
+  if (archiveStack) {
+    const books = [...archiveStack.querySelectorAll(".stack-book")];
+    const kind = document.getElementById("archive-kind");
+    const year = document.getElementById("archive-year");
+    const title = document.getElementById("archive-title");
+    const summary = document.getElementById("archive-summary");
+    const meta = document.getElementById("archive-meta");
+    const link = document.getElementById("archive-link");
+    books.forEach((book) => book.addEventListener("click", () => {
+      books.forEach((item) => {
+        item.classList.remove("is-selected");
+        item.setAttribute("aria-pressed", "false");
+      });
+      book.classList.add("is-selected");
+      book.setAttribute("aria-pressed", "true");
+      if (kind) kind.textContent = book.dataset.kind || "";
+      if (year) year.textContent = book.dataset.year || "";
+      if (title) title.textContent = book.dataset.title || "";
+      if (summary) summary.textContent = book.dataset.summary || "";
+      if (meta) meta.textContent = book.dataset.meta || "";
+      if (link) {
+        if (book.dataset.url) {
+          link.href = book.dataset.url;
+          link.textContent = book.dataset.link || "Read publication";
+          link.hidden = false;
+          link.target = "_blank";
+          link.rel = "noopener";
+        } else {
+          link.hidden = true;
+          link.removeAttribute("href");
+        }
+      }
+    }));
+  }
+
+
+(() => {
+ const root=document.documentElement, toggle=document.querySelector(".theme-toggle");
+ const saved=localStorage.getItem("portfolio-theme");
+ root.dataset.theme=saved||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");
+ const paint=()=>{if(!toggle)return;const light=root.dataset.theme==="light";toggle.setAttribute("aria-label",light?"Switch to dark theme":"Switch to light theme");toggle.querySelector(".theme-label").textContent=light?"Dark":"Light";toggle.querySelector(".theme-icon").textContent=light?"☾":"☼";};
+ paint();toggle?.addEventListener("click",()=>{root.dataset.theme=root.dataset.theme==="light"?"dark":"light";localStorage.setItem("portfolio-theme",root.dataset.theme);paint();});
+})();
+
+(() => {
+ const items=[...document.querySelectorAll(".idea-bubble")];
+ if(!("IntersectionObserver" in window)){items.forEach(item=>item.classList.add("visible"));return;}
+ const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+   if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target);}
+ }),{threshold:.18,rootMargin:"0px 0px -8% 0px"});
+ items.forEach((item,index)=>{item.style.transitionDelay=(index%2) ? "110ms" : "0ms";observer.observe(item);});
+})();
