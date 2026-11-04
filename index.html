@@ -57,21 +57,49 @@
             <span>Based in Bangladesh</span>
           </div>
         </div>
-        <div class="research-world reveal" aria-label="A 3D researcher at a desk with floating research ideas">
-          <div class="world-glow" aria-hidden="true"></div>
-          <div class="idea-orbit orbit-one" aria-hidden="true"></div><div class="idea-orbit orbit-two" aria-hidden="true"></div>
-          <div class="hero-idea idea-diagnostics"><span class="mini-scan"><i></i><b>✚</b></span><span>ML in Medical<br>Diagnostics</span></div>
-          <div class="hero-idea idea-health"><span class="mini-health">♥<i></i><b></b></span><span>Health<br>Analytics</span></div>
-          <div class="hero-idea idea-timeseries"><span class="mini-wave"><svg viewBox="0 0 100 45"><path d="M2 29 C15 29 14 8 26 16 S40 41 52 23 S69 4 78 18 S90 34 98 7"/></svg></span><span>Time Series<br>Analysis</span></div>
-          <div class="hero-idea idea-imaging"><span class="mini-brain"><i></i><b></b></span><span>Deep Learning<br>in Medical Imaging</span></div>
-          <div class="avatar-stage" aria-hidden="true">
-            <div class="avatar-halo"></div><div class="avatar-head"><span class="avatar-hair"></span><span class="avatar-eyes"></span><span class="avatar-nose"></span><span class="avatar-beard"></span></div>
-            <div class="avatar-neck"></div><div class="avatar-body"><span class="avatar-shirt"></span><span class="avatar-collar"></span></div>
-            <div class="avatar-arm avatar-arm-left"></div><div class="avatar-arm avatar-arm-right"></div>
-            <div class="avatar-laptop"><span>IDEAS / IN PROGRESS</span></div><div class="avatar-mug"><span>☕</span></div>
-            <div class="desk-surface"></div>
-          </div>
-          <div class="desk-note">Curiosity at work.</div>
+        <div class="research-world observatory-scene reveal" role="img" aria-label="Abstract digital observatory: a luminous glass prism surrounded by orbital rings, data streams and floating geometric forms">
+          <div class="observatory-aura" aria-hidden="true"></div>
+          <div class="observatory-grid" aria-hidden="true"></div>
+          <svg class="observatory-art" viewBox="0 0 620 560" aria-hidden="true">
+            <defs>
+              <linearGradient id="prismFaceA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e4fff8" stop-opacity=".82"/><stop offset=".48" stop-color="#58d9c3" stop-opacity=".38"/><stop offset="1" stop-color="#177d79" stop-opacity=".12"/></linearGradient>
+              <linearGradient id="prismFaceB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9fff1" stop-opacity=".58"/><stop offset="1" stop-color="#2a91a0" stop-opacity=".12"/></linearGradient>
+              <linearGradient id="prismFaceC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4fff4" stop-opacity=".42"/><stop offset="1" stop-color="#328d83" stop-opacity=".08"/></linearGradient>
+              <linearGradient id="streamStroke" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2a9e9a" stop-opacity="0"/><stop offset=".45" stop-color="#8bffe7"/><stop offset="1" stop-color="#4bb9d0" stop-opacity="0"/></linearGradient>
+              <radialGradient id="coreGlow"><stop offset="0" stop-color="#bffff0" stop-opacity=".65"/><stop offset="1" stop-color="#50d9c8" stop-opacity="0"/></radialGradient>
+              <filter id="prismBlur"><feGaussianBlur stdDeviation="14"/></filter>
+              <filter id="prismShadow"><feGaussianBlur stdDeviation="5"/></filter>
+            </defs>
+            <ellipse cx="310" cy="292" rx="160" ry="190" fill="url(#coreGlow)" filter="url(#prismBlur)"/>
+            <g class="orbit orbit-back"><ellipse cx="310" cy="285" rx="238" ry="91" transform="rotate(-27 310 285)"/><ellipse cx="310" cy="285" rx="210" ry="130" transform="rotate(48 310 285)"/></g>
+            <g class="orbit orbit-front"><ellipse cx="310" cy="285" rx="250" ry="75" transform="rotate(14 310 285)"/></g>
+            <g class="data-streams" fill="none" stroke="url(#streamStroke)" stroke-width="2.4">
+              <path d="M15 365 C110 310 148 410 240 326 S398 190 600 240"/>
+              <path d="M5 215 C115 270 160 160 250 230 S430 375 615 300"/>
+              <path d="M55 445 C170 400 190 330 286 350 S460 425 590 380"/>
+              <path d="M75 120 C170 175 212 112 290 165 S455 225 560 160" opacity=".7"/>
+            </g>
+            <g class="prism-shadow" filter="url(#prismShadow)" opacity=".5"><path d="M310 115 L435 220 L390 405 L225 405 L184 220Z" fill="#0a171c"/></g>
+            <g class="prism-core">
+              <path d="M310 105 L435 220 L365 385 L255 385 L184 220Z" fill="url(#prismFaceA)" stroke="#b5fff0" stroke-opacity=".82" stroke-width="2"/>
+              <path d="M310 105 L310 385 L255 385 L184 220Z" fill="url(#prismFaceB)" stroke="#b5fff0" stroke-opacity=".48"/>
+              <path d="M310 105 L435 220 L365 385 L310 385Z" fill="url(#prismFaceC)" stroke="#c5fff2" stroke-opacity=".58"/>
+              <path d="M184 220 L310 260 L435 220 M255 385 L310 260 L365 385 M310 105 L310 260" fill="none" stroke="#e0fff8" stroke-opacity=".58" stroke-width="1.5"/>
+              <path d="M225 224 L310 148 L397 224 L355 355 L265 355Z" fill="none" stroke="#d4fff5" stroke-opacity=".48" stroke-width="1"/>
+              <path d="M310 150 L310 260 L355 355" fill="none" stroke="#e8fff9" stroke-opacity=".6"/>
+              <circle cx="310" cy="260" r="48" fill="url(#coreGlow)"/>
+              <path d="M290 260 L304 274 L334 240" fill="none" stroke="#e5fff7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>
+            </g>
+            <g class="satellites">
+              <g transform="translate(115 190)"><path d="M0 -22 L20 -10 L20 12 L0 24 L-20 12 L-20 -10Z" fill="#72e8d6" fill-opacity=".22" stroke="#a7fff0"/><path d="M0 -22V2L20 12M0 2L-20 12" fill="none" stroke="#c8fff4" opacity=".8"/></g>
+              <g transform="translate(492 150)"><path d="M0 -18 L18 0 L0 18 L-18 0Z" fill="#70cce0" fill-opacity=".22" stroke="#9beeff"/><path d="M-18 0H18M0 -18V18" stroke="#baf5ff" opacity=".7"/></g>
+              <g transform="translate(480 400)"><circle r="22" fill="#65e4ce" fill-opacity=".12" stroke="#a1ffe9"/><circle r="8" fill="#a1ffe9" fill-opacity=".65"/></g>
+              <g transform="translate(135 410)"><rect x="-14" y="-14" width="28" height="28" rx="5" transform="rotate(25)" fill="#76d5e4" fill-opacity=".2" stroke="#a8f3f1"/></g>
+            </g>
+            <g class="constellation-dots" fill="#b8fff1"><circle cx="75" cy="280" r="3"/><circle cx="545" cy="270" r="3"/><circle cx="220" cy="75" r="2.5"/><circle cx="405" cy="70" r="2"/><circle cx="540" cy="460" r="2.5"/><circle cx="85" cy="470" r="2"/></g>
+          </svg>
+          <div class="observatory-caption"><span class="caption-line"></span><span>IDEAS IN MOTION</span><span class="caption-line"></span></div>
+          <div class="observatory-index" aria-hidden="true">01 <i></i> 04</div>
         </div>
         </div>
       </div>
