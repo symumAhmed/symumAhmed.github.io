@@ -545,3 +545,34 @@ html[data-theme="light"] #journey .journey-tags span{color:#245447;background:#e
 html[data-theme="light"] #journey .journey-marker{background:#e6f3ed;border-color:#7eb9a6;color:#087f70}
 html[data-theme="light"] #journey .journey-marker span{color:#52675f}
 html[data-theme="light"] #journey .journey-end{color:#52675f}
+
+/* Digital Observatory — abstract hero artwork */
+.observatory-scene{position:relative;width:100%;max-width:590px;height:540px;justify-self:end;overflow:hidden;isolation:isolate;border-radius:32px;background:radial-gradient(ellipse at 50% 47%,rgba(38,128,123,.22),transparent 54%),linear-gradient(145deg,rgba(14,29,34,.94),rgba(7,15,21,.98) 68%,rgba(12,28,31,.94));border:1px solid rgba(108,213,194,.17);box-shadow:0 28px 80px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.07)}
+.observatory-aura{position:absolute;inset:8%;border-radius:50%;background:radial-gradient(ellipse,rgba(67,220,195,.16),rgba(51,142,169,.06) 42%,transparent 70%);filter:blur(24px);animation:auraPulse 8s ease-in-out infinite}
+.observatory-grid{position:absolute;inset:0;opacity:.2;background-image:linear-gradient(rgba(130,222,208,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(130,222,208,.12) 1px,transparent 1px);background-size:42px 42px;mask-image:radial-gradient(ellipse at center,#000 8%,transparent 76%)}
+.observatory-art{position:absolute;inset:1%;width:98%;height:94%;overflow:visible}
+.observatory-art .orbit{fill:none;stroke:#82edda;stroke-width:1.2;stroke-dasharray:3 8;opacity:.45;transform-origin:310px 285px}
+.observatory-art .orbit-back{animation:orbitTurn 42s linear infinite}
+.observatory-art .orbit-front{stroke:#b1fff0;stroke-dasharray:1 7;opacity:.58;animation:orbitTurn 32s linear infinite reverse}
+.observatory-art .data-streams{stroke-dasharray:10 12;animation:streamTravel 18s linear infinite}
+.observatory-art .prism-core{transform-origin:310px 260px;animation:prismDrift 7s ease-in-out infinite;filter:drop-shadow(0 0 22px rgba(99,241,214,.2))}
+.observatory-art .satellites{animation:orbitTurn 36s linear infinite;transform-origin:310px 285px}
+.observatory-art .constellation-dots{opacity:.7;animation:twinkle 4s ease-in-out infinite alternate}
+.observatory-caption{position:absolute;bottom:30px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:13px;color:#a5ded2;font-size:.62rem;letter-spacing:.25em;font-weight:700}
+.caption-line{width:34px;height:1px;background:linear-gradient(90deg,transparent,#7bdcca)}
+.caption-line:last-child{transform:rotate(180deg)}
+.observatory-index{position:absolute;right:24px;top:22px;color:#93cfc2;font-size:.62rem;letter-spacing:.17em;display:flex;align-items:center;gap:9px}
+.observatory-index i{width:22px;height:1px;background:#6fdac8}
+@keyframes orbitTurn{to{transform:rotate(360deg)}}
+@keyframes streamTravel{to{stroke-dashoffset:-180}}
+@keyframes prismDrift{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-9px) rotate(.7deg)}}
+@keyframes auraPulse{0%,100%{opacity:.65;transform:scale(.96)}50%{opacity:1;transform:scale(1.06)}}
+@keyframes twinkle{from{opacity:.35}to{opacity:.9}}
+html[data-theme="light"] .observatory-scene{background:radial-gradient(ellipse at 50% 47%,rgba(53,174,154,.19),transparent 55%),linear-gradient(145deg,#e8f5f0,#dcebe7 66%,#eef6f2);border-color:rgba(8,127,112,.22);box-shadow:0 28px 70px rgba(29,88,73,.12),inset 0 1px rgba(255,255,255,.9)}
+html[data-theme="light"] .observatory-grid{opacity:.32;background-image:linear-gradient(rgba(8,127,112,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(8,127,112,.12) 1px,transparent 1px)}
+html[data-theme="light"] .observatory-art .orbit{stroke:#167d70;opacity:.52}
+html[data-theme="light"] .observatory-art .orbit-front{stroke:#075f55}
+html[data-theme="light"] .observatory-caption,html[data-theme="light"] .observatory-index{color:#24695d}
+html[data-theme="light"] .observatory-art .constellation-dots{fill:#087f70}
+@media(max-width:700px){.observatory-scene{height:420px;max-width:100%;border-radius:24px;margin-top:12px}.observatory-art{inset:2%;width:96%;height:90%}.observatory-caption{bottom:21px;font-size:.52rem}.observatory-index{right:17px;top:16px}}
+@media(prefers-reduced-motion:reduce){.observatory-aura,.observatory-art .orbit-back,.observatory-art .orbit-front,.observatory-art .data-streams,.observatory-art .prism-core,.observatory-art .satellites,.observatory-art .constellation-dots{animation:none!important}}
