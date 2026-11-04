@@ -506,3 +506,42 @@ html[data-theme="light"] .theme-toggle{color:#172722;background:#fff;border-colo
 html[data-theme="light"] .console-footer,html[data-theme="light"] .proof-stat span,html[data-theme="light"] .console-stages small{color:#52675f}
 @media(max-width:700px){.research-world{height:480px;transform:scale(.94);transform-origin:top center;margin-bottom:-25px}.avatar-stage{transform:translateX(-50%) scale(.85);transform-origin:bottom center}.hero-idea{padding:9px 10px;gap:7px;font-size:.59rem}.mini-scan,.mini-health,.mini-wave,.mini-brain{width:38px;height:36px}.idea-diagnostics{left:-3%}.idea-health{right:-3%}.idea-timeseries{left:-3%;top:45%}.idea-imaging{right:-3%;top:45%}}
 @media(prefers-reduced-motion:reduce){.hero-idea{animation:none!important}}
+
+/* Targeted light-theme contrast correction: publication books and career cards */
+html[data-theme="light"] #research .archive-detail-panel{
+  background:linear-gradient(145deg,#ffffff,#f0f6f3);
+  border-color:#cbdad4;
+  color:#1b3028;
+}
+html[data-theme="light"] #research .archive-detail-panel h3{color:#172722}
+html[data-theme="light"] #research .archive-detail-panel p{color:#435b51}
+html[data-theme="light"] #research .archive-detail-panel .card-meta,
+html[data-theme="light"] #research .archive-detail-panel .archive-year{color:#087f70}
+html[data-theme="light"] #research .archive-detail-panel .archive-meta{color:#435b51;border-color:#d5e1dc}
+html[data-theme="light"] #research .archive-detail-panel .archive-select-hint{color:#63776e}
+html[data-theme="light"] #research .archive-detail-panel .archive-select-hint span{color:#087f70}
+html[data-theme="light"] #research .stack-book{
+  color:#f4fbf8;
+  background:linear-gradient(145deg,#28675b 0%,#17483f 55%,#10342f 100%);
+  border-color:#5c9888;
+}
+html[data-theme="light"] #research .stack-book .book-year{color:#d6f7eb}
+html[data-theme="light"] #research .stack-book .stack-spine{color:#c8e7dc}
+html[data-theme="light"] #research .stack-book b{color:#ffffff}
+html[data-theme="light"] #research .stack-book small{color:#a9f0dc}
+html[data-theme="light"] #research .stack-book.is-selected{border-color:#087f70;box-shadow:0 12px 24px rgba(19,69,56,.22),inset 5px 0 9px rgba(0,0,0,.16)}
+html[data-theme="light"] #research .stack-book:not(.is-selected){filter:saturate(.9)}
+html[data-theme="light"] #journey .journey-content{
+  background:linear-gradient(145deg,#ffffff,#f1f6f3);
+  border-color:#cfddd7;
+  color:#1b3028;
+  box-shadow:0 10px 28px rgba(27,58,46,.06);
+}
+html[data-theme="light"] #journey .journey-content h3{color:#172722}
+html[data-theme="light"] #journey .journey-content p{color:#435b51}
+html[data-theme="light"] #journey .journey-content .org{color:#435b51}
+html[data-theme="light"] #journey .journey-date{color:#087f70}
+html[data-theme="light"] #journey .journey-tags span{color:#245447;background:#e4f2ec;border-color:#c8ded4}
+html[data-theme="light"] #journey .journey-marker{background:#e6f3ed;border-color:#7eb9a6;color:#087f70}
+html[data-theme="light"] #journey .journey-marker span{color:#52675f}
+html[data-theme="light"] #journey .journey-end{color:#52675f}
