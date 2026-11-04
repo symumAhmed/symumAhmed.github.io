@@ -95,4 +95,12 @@
  const paint=()=>{if(!toggle)return;const light=root.dataset.theme==="light";toggle.setAttribute("aria-label",light?"Switch to dark theme":"Switch to light theme");toggle.querySelector(".theme-label").textContent=light?"Dark":"Light";toggle.querySelector(".theme-icon").textContent=light?"☾":"☼";};
  paint();toggle?.addEventListener("click",()=>{root.dataset.theme=root.dataset.theme==="light"?"dark":"light";localStorage.setItem("portfolio-theme",root.dataset.theme);paint();});
 })();
-(() => {const clouds=[...document.querySelectorAll(".research-cloud")];clouds.forEach(cloud=>cloud.addEventListener("click",()=>{const active=cloud.getAttribute("aria-pressed")==="true";clouds.forEach(item=>item.setAttribute("aria-pressed","false"));if(!active)cloud.setAttribute("aria-pressed","true");}));document.addEventListener("keydown",event=>{if(event.key==="Escape")clouds.forEach(item=>item.setAttribute("aria-pressed","false"));});})();
+
+(() => {
+ const items=[...document.querySelectorAll(".idea-bubble")];
+ if(!("IntersectionObserver" in window)){items.forEach(item=>item.classList.add("visible"));return;}
+ const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+   if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target);}
+ }),{threshold:.18,rootMargin:"0px 0px -8% 0px"});
+ items.forEach((item,index)=>{item.style.transitionDelay=(index%2)*"110ms";observer.observe(item);});
+})();
