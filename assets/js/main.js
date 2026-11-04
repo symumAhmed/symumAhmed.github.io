@@ -102,5 +102,5 @@
  const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
    if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target);}
  }),{threshold:.18,rootMargin:"0px 0px -8% 0px"});
- items.forEach((item,index)=>{item.style.transitionDelay=(index%2)*"110ms";observer.observe(item);});
+ items.forEach((item,index)=>{item.style.transitionDelay=(index%2) ? "110ms" : "0ms";observer.observe(item);});
 })();
