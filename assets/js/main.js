@@ -73,15 +73,18 @@
       if (summary) summary.textContent = book.dataset.summary || "";
       if (meta) meta.textContent = book.dataset.meta || "";
       if (link) {
-        if (book.dataset.url) {
+        const hasDestination = Boolean(book.dataset.url);
+        link.hidden = !hasDestination;
+        if (hasDestination) {
           link.href = book.dataset.url;
-          link.textContent = book.dataset.link || "Read publication";
-          link.hidden = false;
+          link.textContent = (book.dataset.link || "Open resource") + " ↗";
           link.target = "_blank";
           link.rel = "noopener";
         } else {
-          link.hidden = true;
           link.removeAttribute("href");
+          link.removeAttribute("target");
+          link.removeAttribute("rel");
+          link.textContent = "";
         }
       }
     }));
@@ -103,4 +106,36 @@
    if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target);}
  }),{threshold:.18,rootMargin:"0px 0px -8% 0px"});
  items.forEach((item,index)=>{item.style.transitionDelay=(index%2) ? "110ms" : "0ms";observer.observe(item);});
+})();
+
+
+// Sticky research explorer: keep the visual and progress indicator in sync.
+(() => {
+  const topics = [...document.querySelectorAll("[data-research-topic]")];
+  const visuals = [...document.querySelectorAll("[data-research-visual]")];
+  if (!topics.length || !visuals.length) return;
+  const progress = document.getElementById("research-progress-fill");
+  const track = progress?.closest('[role="progressbar"]');
+  const activate = (index) => {
+    topics.forEach((topic, i) => {
+      topic.classList.toggle("is-active", i === index);
+      const status = topic.querySelector(".topic-status");
+      if (status) status.textContent = i === index ? "CURRENT FOCUS" : "EXPLORE";
+    });
+    visuals.forEach((visual, i) => visual.classList.toggle("is-active", i === index));
+    const value = Math.round(((index + 1) / topics.length) * 100);
+    if (progress) progress.style.width = value + "%";
+    if (track) track.setAttribute("aria-valuenow", String(index + 1));
+  };
+  if (!("IntersectionObserver" in window)) { activate(0); return; }
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries.filter(entry => entry.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+    if (visible.length) {
+      const index = topics.indexOf(visible[0].target);
+      if (index >= 0) activate(index);
+    }
+  }, {root:null,rootMargin:"-38% 0px -38% 0px",threshold:[0,.1,.25,.5,.75,1]});
+  topics.forEach(topic => observer.observe(topic));
+  activate(0);
 })();
