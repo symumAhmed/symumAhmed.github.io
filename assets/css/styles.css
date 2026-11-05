@@ -931,3 +931,18 @@ html[data-theme="light"] .topic-image{border-color:rgba(48,91,78,.18);box-shadow
 html[data-theme="light"] .topic-image-mri img{filter:saturate(.82) contrast(1.04)}
 @media(max-width:900px){.topic-image{height:clamp(155px,34vw,220px);margin-bottom:20px}}
 @media(max-width:600px){.topic-image{height:160px;border-radius:13px}}
+
+
+/* Research visuals belong exclusively in the left sticky panel. */
+.research-visual-stage{display:grid;place-items:center;overflow:hidden;padding:clamp(22px,4vw,46px)}
+.research-visual{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:20px;opacity:0;pointer-events:none}
+.research-visual.is-active{opacity:1;pointer-events:auto}
+.research-visual .topic-image{width:min(100%,560px);height:clamp(230px,31vw,390px);margin:0;border-radius:22px;border:1px solid rgba(120,190,174,.28);box-shadow:0 26px 58px rgba(0,0,0,.22)}
+.research-visual .topic-image img,.research-visual .topic-image svg{width:100%;height:100%;object-fit:cover}
+.research-visual .topic-image-analytics svg,.research-visual .topic-image-forecast svg{object-fit:contain}
+.research-visual .topic-image figcaption{left:16px;bottom:15px;font-size:.6rem}
+.rv-topic-index{align-self:flex-start;color:var(--accent);font-size:.65rem;font-weight:800;letter-spacing:.2em}
+.research-topic .topic-image{display:none!important}
+html[data-theme="light"] .research-visual .topic-image{box-shadow:0 24px 50px rgba(35,68,57,.16)}
+@media(max-width:900px){.research-visual-stage{padding:18px}.research-visual .topic-image{height:clamp(210px,42vw,330px)}}
+@media(max-width:600px){.research-visual-stage{padding:12px}.research-visual{padding:10px}.research-visual .topic-image{height:210px;border-radius:16px}}
