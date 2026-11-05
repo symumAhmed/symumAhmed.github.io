@@ -896,3 +896,38 @@ html[data-theme="light"] .stack-book-three{background:linear-gradient(145deg,#51
 html[data-theme="light"] .stack-book-four{background:linear-gradient(145deg,#4b354b,#2b1d32 72%,#19121e)!important}
 html[data-theme="light"] .stack-book .stack-spine,html[data-theme="light"] .stack-book small{color:#c5e6dc!important}
 @media(prefers-reduced-motion:reduce){.journey-story .journey-content,.research-visual{transition:none!important}}
+
+
+/* Light-theme publication archive: keep the covers dark, soften the stage around them. */
+html[data-theme="light"] .archive-visual{
+  background:radial-gradient(circle at 50% 42%,rgba(8,127,112,.12),transparent 57%),linear-gradient(145deg,#f2f7f4,#e5eee9)!important;
+  border-color:rgba(48,91,78,.16);
+  box-shadow:0 18px 45px rgba(35,68,57,.08),inset 0 1px rgba(255,255,255,.9);
+}
+html[data-theme="light"] .archive-visual:before{
+  background-image:linear-gradient(rgba(28,105,88,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(28,105,88,.055) 1px,transparent 1px);
+}
+html[data-theme="light"] .archive-orbit{border-color:rgba(8,127,112,.22)}
+html[data-theme="light"] .archive-orbit-two{border-color:rgba(8,127,112,.13)}
+html[data-theme="light"] .archive-detail-panel{
+  background:linear-gradient(145deg,#f7faf8,#edf4f0)!important;
+  border-color:rgba(48,91,78,.16);
+  box-shadow:0 16px 38px rgba(35,68,57,.07);
+}
+html[data-theme="light"] .archive-detail-panel h3{color:#182d27}
+html[data-theme="light"] .archive-detail-panel p{color:#50665e}
+html[data-theme="light"] .archive-meta{color:#49685d;border-color:rgba(48,91,78,.16)}
+html[data-theme="light"] .archive-select-hint{color:#647b72}
+
+
+/* Topic-specific research imagery and visual cards. */
+.research-topic{gap:0}
+.topic-image{position:relative;width:100%;height:clamp(145px,20vw,220px);margin:0 0 24px;border:1px solid rgba(84,226,203,.18);border-radius:16px;overflow:hidden;background:#12242b;box-shadow:0 14px 34px rgba(0,0,0,.12)}
+.topic-image img,.topic-image svg{display:block;width:100%;height:100%;object-fit:cover}
+.topic-image-mri img{object-position:center 45%;filter:saturate(.78) contrast(1.06)}
+.topic-image figcaption{position:absolute;left:13px;bottom:11px;padding:6px 9px;border:1px solid rgba(255,255,255,.18);border-radius:6px;background:rgba(7,17,22,.72);backdrop-filter:blur(8px);color:#d5eee7;font-size:.53rem;font-weight:800;letter-spacing:.14em}
+.topic-image-analytics svg,.topic-image-forecast svg{object-fit:cover}
+html[data-theme="light"] .topic-image{border-color:rgba(48,91,78,.18);box-shadow:0 12px 28px rgba(35,68,57,.09)}
+html[data-theme="light"] .topic-image-mri img{filter:saturate(.82) contrast(1.04)}
+@media(max-width:900px){.topic-image{height:clamp(155px,34vw,220px);margin-bottom:20px}}
+@media(max-width:600px){.topic-image{height:160px;border-radius:13px}}
