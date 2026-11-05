@@ -73,15 +73,18 @@
       if (summary) summary.textContent = book.dataset.summary || "";
       if (meta) meta.textContent = book.dataset.meta || "";
       if (link) {
-        if (book.dataset.url) {
+        const hasDestination = Boolean(book.dataset.url);
+        link.hidden = !hasDestination;
+        if (hasDestination) {
           link.href = book.dataset.url;
-          link.textContent = book.dataset.link || "Read publication";
-          link.hidden = false;
+          link.textContent = (book.dataset.link || "Open resource") + " ↗";
           link.target = "_blank";
           link.rel = "noopener";
         } else {
-          link.hidden = true;
           link.removeAttribute("href");
+          link.removeAttribute("target");
+          link.removeAttribute("rel");
+          link.textContent = "";
         }
       }
     }));
