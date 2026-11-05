@@ -106,40 +106,25 @@
 })();
 
 
-// Sticky research explorer: synchronize the fixed visual with the topic in view.
+// Sticky research explorer: keep the visual and progress indicator in sync.
 (() => {
   const topics = [...document.querySelectorAll("[data-research-topic]")];
   const visuals = [...document.querySelectorAll("[data-research-visual]")];
   if (!topics.length || !visuals.length) return;
-
-  const counter = document.getElementById("research-counter");
-  const kicker = document.getElementById("research-active-kicker");
-  const title = document.getElementById("research-active-title");
-  const description = document.getElementById("research-active-description");
   const progress = document.getElementById("research-progress-fill");
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
+  const track = progress?.closest('[role="progressbar"]');
   const activate = (index) => {
-    const topic = topics[index];
-    if (!topic) return;
-    topics.forEach((item, i) => {
-      const active = i === index;
-      item.classList.toggle("is-active", active);
-      const status = item.querySelector(".topic-status");
-      if (status) status.textContent = active ? "CURRENT FOCUS" : "EXPLORE";
+    topics.forEach((topic, i) => {
+      topic.classList.toggle("is-active", i === index);
+      const status = topic.querySelector(".topic-status");
+      if (status) status.textContent = i === index ? "CURRENT FOCUS" : "EXPLORE";
     });
     visuals.forEach((visual, i) => visual.classList.toggle("is-active", i === index));
-    if (counter) counter.textContent = String(index + 1).padStart(2, "0") + " — " + String(topics.length).padStart(2, "0");
-    if (kicker) kicker.textContent = topic.querySelector(".topic-index")?.textContent || "";
-    if (title) title.textContent = topic.querySelector("h3")?.textContent || "";
-    if (description) description.textContent = topic.querySelector("p")?.textContent || "";
-    if (progress) progress.style.width = ((index + 1) / topics.length * 100) + "%";
+    const value = Math.round(((index + 1) / topics.length) * 100);
+    if (progress) progress.style.width = value + "%";
+    if (track) track.setAttribute("aria-valuenow", String(index + 1));
   };
-
-  if (!("IntersectionObserver" in window)) {
-    activate(0);
-    return;
-  }
+  if (!("IntersectionObserver" in window)) { activate(0); return; }
   const observer = new IntersectionObserver((entries) => {
     const visible = entries.filter(entry => entry.isIntersecting)
       .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
@@ -147,11 +132,7 @@
       const index = topics.indexOf(visible[0].target);
       if (index >= 0) activate(index);
     }
-  }, {
-    root: null,
-    rootMargin: "-38% 0px -38% 0px",
-    threshold: [0, 0.1, 0.25, 0.5, 0.75, 1]
-  });
+  }, {root:null,rootMargin:"-38% 0px -38% 0px",threshold:[0,.1,.25,.5,.75,1]});
   topics.forEach(topic => observer.observe(topic));
   activate(0);
 })();
